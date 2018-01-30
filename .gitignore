@@ -1,4 +1,5 @@
 .idea/
 WebDriverTestNG.iml
 target/
-
+allure-results
+.allure/

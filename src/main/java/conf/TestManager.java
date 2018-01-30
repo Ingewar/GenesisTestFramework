@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import pages.GoogleStartPage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,8 @@ public class TestManager {
     private String baseUrl = "http://google.com/";
     private static String uniqValue;
     public static String uniqPhoneNumber;
+    // Create instance of Google Start page
+    protected GoogleStartPage googleStartPage;
 
     @BeforeClass(alwaysRun = true)
     public void setUp(){
@@ -46,6 +49,7 @@ public class TestManager {
 //            driver.manage().window().maximize();
         }
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        googleStartPage = new GoogleStartPage();
     }
 
     @BeforeMethod(alwaysRun = true)
