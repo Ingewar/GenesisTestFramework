@@ -24,6 +24,7 @@ public class TestManager {
     public static String uniqPhoneNumber;
     String system = System.getProperty("os.name");
     String browser = new PropertyFileReader().getPropertyValue("BROWSER");
+    String emulator = new PropertyFileReader().getPropertyValue("EMULATOR");
     // Create instance of Google Start page
     protected PromUAHomePage promUAHomePage;
 
@@ -45,7 +46,8 @@ public class TestManager {
                 } else {
                     System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriverlinux");
                     driver = new ChromeDriver();
-                    driver.manage().window().setSize(new Dimension(1920,1080));//workaround for new Chrome update
+                    //workaround for new Chrome update
+                    driver.manage().window().setSize(new Dimension(1920,1080));
                 }
                 System.out.println(browser+" driver for " + system + " was set.");
                 break;
@@ -61,17 +63,17 @@ public class TestManager {
                 driver = new FirefoxDriver();
                 driver.manage().window().maximize();
                 break;
-            case "chrome iPhone X":
+            case "chromeEmulator":
                 System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedrivermac");
 
                 Map<String, String> mobileEmulation = new HashMap<>();
-                mobileEmulation.put("deviceName", "iPhone X");
+                mobileEmulation.put("deviceName", emulator);
 
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
 
                 driver = new ChromeDriver(chromeOptions);
-                System.out.println(browser+" driver for " + system + " was set.");
+                System.out.println(browser+" - "+emulator+" driver for " + system + " was set.");
                 break;
         }
 
