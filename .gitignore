@@ -1,5 +1,5 @@
 .idea/
-WebDriverTestNG.iml
+WebDriverAllure.iml
 target/
 allure-results
 .allure/
