@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Functional framework template" >
+<suite name="Genesis automated test framework" >
     <test name="All tests">
         <groups>
             <run>
@@ -8,7 +8,7 @@
             </run>
         </groups>
         <classes>
-            <class name="GoogleTests"/>
+            <class name="PromUATests"/>
         </classes>
     </test>
 </suite>

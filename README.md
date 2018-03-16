@@ -1,6 +1,6 @@
 ## Functional tests framework
 
-This is a template of functional test automation framework based on Java and Selenium 3.* with TestNG and Allure. Its include all necessary libraries in pom.xml file and in /main/resources folder. You can simple add new test in created tests files or create your own.
+This is a test work of functional test automation framework based on Java and Selenium 3.* with TestNG and Allure. Its include all necessary libraries in pom.xml file and in /main/resources folder. You can simple add new test in created tests files or create your own.
 
 ### Getting Started
 

@@ -5,51 +5,79 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import pages.GoogleStartPage;
+import pages.PromUAHomePage;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class TestManager {
 
     protected static WebDriver driver;
-    private String baseUrl = "http://google.com/";
+    private String baseUrl = "https://prom.ua/";
     private static String uniqValue;
     public static String uniqPhoneNumber;
+    String system = System.getProperty("os.name");
+    String browser = new PropertyFileReader().getPropertyValue("BROWSER");
     // Create instance of Google Start page
-    protected GoogleStartPage googleStartPage;
+    protected PromUAHomePage promUAHomePage;
 
     @BeforeClass(alwaysRun = true)
     public void setUp(){
-        String system = System.getProperty("os.name");
-        if(system.contains("Mac")) {
-            System.out.println(system + " was detected.");
-//            System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodrivermac");
-            System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedrivermac");
-            System.out.println("Driver for " + system + " was set.");
-//            driver = new FirefoxDriver();
-            driver = new ChromeDriver();
-            driver.manage().window().setPosition(new Point(0, 0));
-            driver.manage().window().setSize(new Dimension(1440, 900));
-        }else if(system.contains("Windows")){
-            System.out.println(system + " was detected.");
-            System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-            driver= new FirefoxDriver();
-            driver.manage().window().maximize();
-        } else {
-            System.out.println(system + " was detected.");
-//            System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriverlinux");
-            System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriverlinux");
-            System.out.println("Driver for " + system + " was set.");
-            driver = new ChromeDriver();
-            driver.manage().window().setSize(new Dimension(1920,1080));//workaround for new Chrome update
-//            driver.manage().window().maximize();
+        System.out.println(system + " was detected.");
+        switch (browser){
+            case "chrome":
+                if(system.contains("Mac")) {
+                    System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedrivermac");
+                    driver = new ChromeDriver();
+                    //Workaround for new Chrome update
+                    driver.manage().window().setPosition(new Point(0, 0));
+                    driver.manage().window().setSize(new Dimension(1440, 900));
+                }else if(system.contains("Windows")){
+                    System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+                    driver= new FirefoxDriver();
+                    driver.manage().window().maximize();
+                } else {
+                    System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriverlinux");
+                    driver = new ChromeDriver();
+                    driver.manage().window().setSize(new Dimension(1920,1080));//workaround for new Chrome update
+                }
+                System.out.println(browser+" driver for " + system + " was set.");
+                break;
+            case "firefox":
+                if (system.contains("Mac")){
+                    System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodrivermac");
+                }else if(system.contains("Windows")){
+                    System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+                }else {
+                    System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriverlinux");
+                }
+                System.out.println(browser+" driver for " + system + " was set.");
+                driver = new FirefoxDriver();
+                driver.manage().window().maximize();
+                break;
+            case "chrome iPhone X":
+                System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedrivermac");
+
+                Map<String, String> mobileEmulation = new HashMap<>();
+                mobileEmulation.put("deviceName", "iPhone X");
+
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+
+                driver = new ChromeDriver(chromeOptions);
+                System.out.println(browser+" driver for " + system + " was set.");
+                break;
         }
+
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        googleStartPage = new GoogleStartPage();
+        promUAHomePage = new PromUAHomePage();
     }
 
     @BeforeMethod(alwaysRun = true)
