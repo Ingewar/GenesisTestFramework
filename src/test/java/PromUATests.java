@@ -5,8 +5,8 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 @Listeners(MyListeners.class)
-@Epic("Regression testing")
-@Feature("Google tests")
+@Epic("Test task")
+@Feature("Prom.ua tests")
 public class GoogleTests extends TestManager{
 
     @Test(groups = "All", alwaysRun = true, priority = 0, description = "Open Google start page")
