@@ -14,7 +14,6 @@ public class PromUAHomePage extends Page{
     //ASSERT METHODS
     @Step("Verify title of Google start page")
     public void verifyTitle(){
-        waitInSeconds(10);
         assertTrue(true);
     }
 
