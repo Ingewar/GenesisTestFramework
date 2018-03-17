@@ -12,6 +12,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import pages.PromUAHomePage;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -23,11 +25,12 @@ public class TestManager {
     private static String uniqValue;
     public static String uniqPhoneNumber;
     String system = System.getProperty("os.name");
-    String browser = new PropertyFileReader().getPropertyValue("BROWSER");
+    public static String browser = new PropertyFileReader().getPropertyValue("BROWSER");
     String emulator = new PropertyFileReader().getPropertyValue("EMULATOR");
     // Create instance of Google Start page
     protected PromUAHomePage promUAHomePage;
 
+    //TODO refactor set up method
     @BeforeClass(alwaysRun = true)
     public void setUp(){
         System.out.println(system + " was detected.");
@@ -121,5 +124,15 @@ public class TestManager {
             }
         }
         return result;
+    }
+
+    public static String encodeToUTF8(String text){
+        String encodedText = null;
+        try {
+            encodedText = URLEncoder.encode(text, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return encodedText;
     }
 }

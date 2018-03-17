@@ -64,6 +64,8 @@ public abstract class Element {
         return composeWebElement().getText();
     }
 
+    public String getAttribute(String attribute){return  composeWebElement().getAttribute(attribute);}
+
     public void waitElementToBeClickable(){
         wait.until(ExpectedConditions.elementToBeClickable(composeWebElement()));
     }

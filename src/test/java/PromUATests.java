@@ -1,6 +1,7 @@
 import conf.MyListeners;
 import conf.TestManager;
 import io.qameta.allure.*;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -9,19 +10,34 @@ import org.testng.annotations.Test;
 @Feature("Prom.ua tests")
 public class PromUATests extends TestManager{
 
-    @Test(groups = "All", alwaysRun = true, priority = 0, description = "Open Google start page")
-    @Description("Test Description: I open 'google.com' and checking title")
+    @Test(groups = "All", alwaysRun = true, priority = 0, description = "New Company registration test")
+    @Description("Test Description: I create new Company account")
     @Severity(SeverityLevel.BLOCKER)
-    @Story("User should be able to open Google start page")
-    public void openGoogleStartPage(){
-        promUAHomePage.verifyTitle();
+    @Story("User should be able to pass registration as company")
+    public void registrationAsCompany(){
+        promUAHomePage.openCompanyRegistrationPage()
+                .createNewCompany("testmail@mailsac.com", "pass")
+                .myCabinetIsDisplayed();
     }
 
-    @Test(groups = "All", alwaysRun = true, priority = 0, description = "Test that always fails")
-    @Description("Test Description: Test to fail")
-    @Story("This test should always fails")
-    public void testToFail(){
-        promUAHomePage.failedVerification();
+
+    @DataProvider(name = "searchValues")
+    public Object [][] searchValues(){
+        return new Object[][]{
+                {"телев", "телевизор"},
+                {"весло", "весло"},
+                {"добер", "доберман"}
+        };
     }
+
+    @Test(groups = "All", alwaysRun = true, priority = 0, description = "Search autocomplete test", dataProvider = "searchValues")
+    @Description("Test Description: I search for a product using autocomplete")
+    @Severity(SeverityLevel.BLOCKER)
+    @Story("User should be able to search product via autocomplete")
+    public void searchAutoCompleteTest(String searchValue, String expectedValue){
+        promUAHomePage.searchWithAutoComplete(searchValue, expectedValue)
+        .verifySearchResultPage(expectedValue);
+    }
+
 
 }
