@@ -21,6 +21,8 @@ public class PromUATests extends TestManager{
     }
 
 
+    //'плеер' value was replaces by "весло" due to issue with suggested category displayed in autocomplete section
+    // test with "добер" value will fail on desktop browser due to some bug in prom.ua app - autocomplete doesn't work
     @DataProvider(name = "searchValues")
     public Object [][] searchValues(){
         return new Object[][]{
