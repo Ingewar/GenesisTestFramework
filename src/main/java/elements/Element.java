@@ -8,6 +8,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 import static conf.TestManager.getDriver;
 import static conf.TestManager.waitInSeconds;
 
@@ -19,6 +21,7 @@ public abstract class Element {
     WebDriverWait wait = new WebDriverWait(getDriver(), 10);
 
     protected WebElement composeWebElement(){ return getDriver().findElement(by);}
+    protected List <WebElement> composeWebElements() { return  getDriver().findElements(by);}
 
     public void scrollAndClick(){
         ((JavascriptExecutor)getDriver()).executeScript("arguments[0].scrollIntoView(false);", composeWebElement());

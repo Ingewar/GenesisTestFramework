@@ -24,6 +24,7 @@ public class TestManager {
     private String baseUrl = "https://prom.ua/";
     private static String uniqValue;
     public static String uniqPhoneNumber;
+    public static String randomNumber;
     String system = System.getProperty("os.name");
     public static String browser = new PropertyFileReader().getPropertyValue("BROWSER");
     String emulator = new PropertyFileReader().getPropertyValue("EMULATOR");
@@ -89,7 +90,8 @@ public class TestManager {
         driver.manage().deleteAllCookies();
         driver.get(baseUrl);
         uniqValue = RandomStringUtils.randomAlphanumeric(10);
-        uniqPhoneNumber = "+380"+RandomStringUtils.randomNumeric(9);
+        uniqPhoneNumber = "+38050"+RandomStringUtils.randomNumeric(7);
+        randomNumber = RandomStringUtils.randomNumeric(5);
     }
 
     @AfterClass(alwaysRun = true)
@@ -135,4 +137,5 @@ public class TestManager {
         }
         return encodedText;
     }
+
 }

@@ -5,6 +5,8 @@ import elements.TextField;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
+import java.awt.event.KeyEvent;
+
 import static conf.TestManager.browser;
 import static org.testng.Assert.*;
 import static conf.TestManager.getDriver;
@@ -51,6 +53,16 @@ public class PromUAHomePage extends Page{
             searchField.type(searchText);
         }
         selectAutoComplete(fullText);
+        return new SearchResultPage();
+    }
+
+    public SearchResultPage searchProduct(String searchText) {
+        if(browser.equals("chromeEmulator")){
+            searchIcon.click();
+            mobileSearchField.type(searchText + "\n");
+        }else{
+            searchField.type(searchText + "\n");
+        }
         return new SearchResultPage();
     }
 

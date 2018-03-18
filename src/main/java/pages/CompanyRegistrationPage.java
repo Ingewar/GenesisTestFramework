@@ -5,9 +5,7 @@ import elements.TextField;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
-import static conf.TestManager.addUniqValue;
-import static conf.TestManager.browser;
-import static conf.TestManager.uniqPhoneNumber;
+import static conf.TestManager.*;
 
 public class CompanyRegistrationPage extends Page{
 
@@ -25,6 +23,20 @@ public class CompanyRegistrationPage extends Page{
     @Step("Fill and submit new company registration form")
     public LastStepRegistrationPage createNewCompany(String email, String pass) {
         emailLoginField.type(addUniqValue(email));
+        passwordRegistationField.type(addUniqValue(pass));
+        if(browser.equals("chromeEmulator")){
+            phoneNumberField.type(uniqPhoneNumber);
+            companyNameField.type(addUniqValue("TestCompany"));
+            answerOptionMajorButton.click();
+            answerOptionSelectButton.click();
+        }
+        createSiteButton.click();
+        return new LastStepRegistrationPage();
+    }
+
+    @Step("Fill and submit new company registration form for API test")
+    public LastStepRegistrationPage createNewCompanyForApiTest(String email, String pass) {
+        emailLoginField.type(randomNumber+email);
         passwordRegistationField.type(addUniqValue(pass));
         if(browser.equals("chromeEmulator")){
             phoneNumberField.type(uniqPhoneNumber);
