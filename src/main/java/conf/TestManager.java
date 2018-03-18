@@ -44,8 +44,8 @@ public class TestManager {
                     driver.manage().window().setPosition(new Point(0, 0));
                     driver.manage().window().setSize(new Dimension(1440, 900));
                 }else if(system.contains("Windows")){
-                    System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-                    driver= new FirefoxDriver();
+                    System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+                    driver= new ChromeDriver();
                     driver.manage().window().maximize();
                 } else {
                     System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriverlinux");
@@ -68,8 +68,13 @@ public class TestManager {
                 driver.manage().window().maximize();
                 break;
             case "chromeEmulator":
-                System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedrivermac");
-
+                if(system.contains("Mac")){
+                    System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedrivermac");
+                }else if (system.contains("Windows")){
+                    System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+                }else{
+                    System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriverlinux");
+                }
                 Map<String, String> mobileEmulation = new HashMap<>();
                 mobileEmulation.put("deviceName", emulator);
 
