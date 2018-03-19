@@ -28,7 +28,7 @@ public class TestManager {
     String system = System.getProperty("os.name");
     public static String browser = new PropertyFileReader().getPropertyValue("BROWSER");
     String emulator = new PropertyFileReader().getPropertyValue("EMULATOR");
-    // Create instance of Google Start page
+    // Create instance of Prom.ua Home page
     protected PromUAHomePage promUAHomePage;
 
     //TODO refactor set up method

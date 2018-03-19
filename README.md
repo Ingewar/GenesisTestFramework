@@ -32,6 +32,7 @@ To install Allure, download and install Scoop and then execute in the Powershell
 
 ### Running tests
 
+Before run tests, set necessary browser (chrome, chromeEmulator) in `config.properties` file.
 To start suite from CLI run following command: `mvn clean test`.
 To generate report run: `allure results`and to open on local server run: `allure serve`. Or simply run `allure serve allure-results`.
 In order to do this in IntelliJ first, you should click configurations. Select maven, and write the maven “clean test” command as shown below and then click OK.
